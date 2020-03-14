@@ -5,7 +5,9 @@ import ytdl from 'ytdl-core';
 
 const app = express();
 
-app.listen(4200, 'localhost', () => console.log('server running'));
+const PORT: number = parseInt(process.env.PORT || '3000', 10);
+
+app.listen(PORT, '0.0.0.0', () => console.log('server running'));
 
 const getVidLink = async (num: number): Promise<string> => {
   const { items } = await ytsr(`IMG${num}`);
