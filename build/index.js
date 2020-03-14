@@ -10,7 +10,8 @@ const express_1 = __importDefault(require('express'));
 const ytsr_1 = __importDefault(require('ytsr'));
 const ytdl_core_1 = __importDefault(require('ytdl-core'));
 const app = express_1.default();
-app.listen(4200, 'localhost', () => console.log('server running'));
+const PORT = parseInt(process.env.PORT || '3000', 10);
+app.listen(PORT, '0.0.0.0', () => console.log('server running'));
 const getVidLink = async num => {
   const { items } = await ytsr_1.default(`IMG${num}`);
   const randIndex = Math.floor(Math.random() * items.length);
@@ -39,6 +40,6 @@ const getVid = async res => {
     )
     .catch(() => getVid(res));
 };
-app.get('/video', async function(req, res) {
+app.get('/', async function(req, res) {
   getVid(res);
 });

@@ -38,6 +38,6 @@ const getVid = async (res: Response<any>): Promise<void> => {
     .catch(() => getVid(res));
 };
 
-app.get('/video', async function(req, res) {
+app.get('/', async function(req, res) {
   getVid(res);
 });
