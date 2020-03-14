@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "target": "es2018",
+    "module": "commonjs",
+    "lib": ["es6"],
+    "declaration": true,
+    "removeComments": false,
+    "stripInternal": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "noEmitOnError": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "typeRoots": ["types", "node_modules/@types"]
+  },
+  "include": ["src/**/*"],
+}
