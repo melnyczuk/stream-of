@@ -28,10 +28,8 @@
   "scripts": {
     "build": "tsc",
     "start:server": "yarn build && node build/index.js",
-    "lint": "yarn lint:src && yarn lint:tst",
+    "lint": "eslint ./src/** --ext .ts",
     "lint:fix": "yarn lint --fix",
-    "lint:src": "eslint ./src/** --ext .ts",
-    "lint:tst": "eslint ./tst/** --ext .ts",
     "prettier": "prettier '{src,tst}/**/*.ts'",
     "prettier:fix": "yarn prettier --write"
   },
