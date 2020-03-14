@@ -28,10 +28,10 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint ./src/** --ext .ts",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "npm run lint --fix",
     "prettier": "prettier '{src,tst}/**/*.ts'",
     "prettier:fix": "yarn prettier --write",
-    "start": "yarn build && node build/index.js"
+    "start": "npm run build && node build/index.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -41,8 +41,8 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "yarn prettier:fix",
-      "yarn lint:fix",
+      "npm run prettier:fix",
+      "npm run lint:fix",
       "git add"
     ]
   },
