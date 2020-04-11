@@ -31,7 +31,8 @@
     "lint:fix": "yarn lint --fix",
     "prettier": "prettier '{src,tst}/**/*.ts'",
     "prettier:fix": "yarn prettier --write",
-    "start": "node build/index.js"
+    "start": "node build/index.js",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "axios": "^0.19.2",
