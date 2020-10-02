@@ -14,7 +14,7 @@
     "noEmitOnError": false,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "typeRoots": ["types", "node_modules/@types"]
+    "typeRoots": ["src/types"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*"]
 }
