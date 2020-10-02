@@ -11,24 +11,18 @@ export const getLink = async (n = rN(10000)): Promise<string> => {
   return link ? link : getLink();
 };
 
-export const getUrl = async (
-  link: Promise<string> = getLink(),
-): Promise<string> => {
+export const getUrl = async (link = getLink()): Promise<string> => {
   const id = ytdl.getURLVideoID(await link);
   const { formats } = await ytdl.getInfo(id);
   const [{ url }] = formats;
   return url ? url : getUrl();
 };
 
-export const getStream = async (
-  urlPromise = getUrl(),
-): Promise<AxiosResponse> => {
-  const url = await urlPromise;
-  console.log('url', url);
+export const getStream = async (url = getUrl()): Promise<AxiosResponse> => {
   const stream = await axios({
     method: 'get',
     responseType: 'stream',
-    url,
+    url: await url,
   });
   return stream?.headers['content-type'].length > 0 ? stream : getStream();
 };
