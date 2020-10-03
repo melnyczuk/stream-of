@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { Router, Response } from 'express';
 import { asyncRequestErrorHandler } from './errors';
-import { getLink, getStream, getUrl } from './functions';
+import { getLink, getId, getStream, getUrl } from './functions';
 
 const routes = Router();
 
@@ -25,7 +25,7 @@ function pipe(res: Response, stream: AxiosResponse): void {
 }
 
 routes.get(
-  '/video-link',
+  '/link',
   asyncRequestErrorHandler(async (res: Response) => {
     const link = await getLink();
     link ? good(res, link) : bad(res);
@@ -33,7 +33,15 @@ routes.get(
 );
 
 routes.get(
-  '/stream-url',
+  '/id',
+  asyncRequestErrorHandler(async (res: Response) => {
+    const id = await getId();
+    id ? good(res, id) : bad(res);
+  }),
+);
+
+routes.get(
+  '/url',
   asyncRequestErrorHandler(async (res: Response) => {
     const url = await getUrl();
     url ? good(res, url) : bad(res);
@@ -41,7 +49,7 @@ routes.get(
 );
 
 routes.get(
-  '/pipe-stream',
+  '/stream',
   asyncRequestErrorHandler(async (res: Response) => {
     const stream = await getStream();
     stream ? pipe(res, stream) : bad(res);
