@@ -13,10 +13,15 @@ export const getLink = circuitBreaker<string>(
   },
 );
 
-export const getUrl = circuitBreaker<string>(
+export const getId = circuitBreaker<string>(
   async (link: Promise<string> = getLink()) => {
-    const id = ytdl.getURLVideoID(await link);
-    const { formats = [] } = await ytdl.getInfo(id);
+    return ytdl.getURLVideoID(await link);
+  },
+);
+
+export const getUrl = circuitBreaker<string>(
+  async (id: Promise<string> = getId()) => {
+    const { formats = [] } = await ytdl.getInfo(await id);
     const { url = '' } = formats[0];
     return url;
   },
