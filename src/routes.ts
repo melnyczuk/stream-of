@@ -1,22 +1,14 @@
-import { Router, Request, Response } from 'express';
+import { Router, Response } from 'express';
+import { asyncRequestErrorHandler } from './errors';
 import { getLink, getStream, getUrl } from './functions';
 
 const routes = Router();
 
-const asyncRequestErrorHandler = (fn: (r: Response) => Promise<void>) => (
-  _: Request,
-  res: Response,
-): Promise<void> =>
-  fn(res).catch(e => {
-    console.log('error:', e);
-    res.status(500).send(e);
-  });
-
 routes.get(
   '/video-link',
   asyncRequestErrorHandler(async (res: Response) => {
-    const link = await getLink();
-    console.log('link:', link);
+    const link = await getLink(0);
+    console.log('/video-link :', link);
     res.status(200).send(link);
   }),
 );
@@ -24,8 +16,8 @@ routes.get(
 routes.get(
   '/stream-url',
   asyncRequestErrorHandler(async (res: Response) => {
-    const url = await getUrl();
-    console.log('link:', url);
+    const url = await getUrl(0);
+    console.log('/stream-url :', url);
     res.status(200).send(url);
   }),
 );
@@ -33,8 +25,8 @@ routes.get(
 routes.get(
   '/pipe-stream',
   asyncRequestErrorHandler(async (res: Response) => {
-    const stream = await getStream();
-    console.log('stream');
+    const stream = await getStream(0);
+    console.log('/pipe-stream :', stream.data.responseUrl);
     res.setHeader('content-length', stream.headers['content-type']);
     res.setHeader('content-type', stream.data.headers['content-type']);
     stream.data.pipe(res);
