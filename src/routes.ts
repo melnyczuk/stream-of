@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { Router, Response } from 'express';
 import { asyncRequestErrorHandler } from './errors';
-import { getLink, getId, getStream, getUrl } from './functions';
+import { getId, getInfo, getLink, getStream, getUrl } from './functions';
 
 const routes = Router();
 
@@ -37,6 +37,14 @@ routes.get(
   asyncRequestErrorHandler(async (res: Response) => {
     const id = await getId();
     id ? good(res, id) : bad(res);
+  }),
+);
+
+routes.get(
+  '/info',
+  asyncRequestErrorHandler(async (res: Response) => {
+    const info = await getInfo();
+    info ? good(res, info) : bad(res);
   }),
 );
 

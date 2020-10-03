@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import ytsr from 'ytsr';
-import ytdl from 'ytdl-core';
+import ytdl, { videoInfo } from 'ytdl-core';
 import { circuitBreaker } from './errors';
 
 const getRandomInt = (seed: number): number => Math.floor(Math.random() * seed);
@@ -14,14 +14,16 @@ export const getLink = circuitBreaker<string>(
 );
 
 export const getId = circuitBreaker<string>(
-  async (link: Promise<string> = getLink()) => {
-    return ytdl.getURLVideoID(await link);
-  },
+  async (link: Promise<string> = getLink()) => ytdl.getURLVideoID(await link),
+);
+
+export const getInfo = circuitBreaker<videoInfo>(
+  async (id: Promise<string> = getId()) => ytdl.getInfo(await id),
 );
 
 export const getUrl = circuitBreaker<string>(
-  async (id: Promise<string> = getId()) => {
-    const { formats = [] } = await ytdl.getInfo(await id);
+  async (info: Promise<videoInfo> = getInfo()) => {
+    const { formats = [] } = await info;
     const { url = '' } = formats[0];
     return url;
   },
