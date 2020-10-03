@@ -17,13 +17,16 @@ export const getId = circuitBreaker<string>(
   async (link: Promise<string> = getLink()) => ytdl.getURLVideoID(await link),
 );
 
-export const getInfo = circuitBreaker<videoInfo>(
-  async (id: Promise<string> = getId()) => ytdl.getInfo(await id),
-);
+export const getInfo = circuitBreaker<
+  videoInfo['player_response']['videoDetails']
+>(async (id: Promise<string> = getId()) => {
+  const info = await ytdl.getBasicInfo(await id);
+  return info.player_response.videoDetails;
+});
 
 export const getUrl = circuitBreaker<string>(
-  async (info: Promise<videoInfo> = getInfo()) => {
-    const { formats = [] } = await info;
+  async (id: Promise<string> = getId()) => {
+    const { formats = [] } = await ytdl.getInfo(await id);
     const { url = '' } = formats[0];
     return url;
   },
