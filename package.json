@@ -1,9 +1,9 @@
 {
-  "name": "imgxxxx",
+  "name": "stream-of",
   "version": "0.0.1",
   "description": "watch stuff",
   "main": "index.ts",
-  "repository": "git@github.com:melnyczuk/imgxxxx.git",
+  "repository": "git@github.com:melnyczuk/stream-of.git",
   "author": "melnyczuk <h.melnyczuk@gmail.com>",
   "license": "MIT",
   "devDependencies": {
@@ -41,7 +41,7 @@
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "ytdl-core": "^2.0.0",
+    "ytdl-core": "^4.5.0",
     "ytsr": "^0.1.11"
   },
   "lint-staged": {
